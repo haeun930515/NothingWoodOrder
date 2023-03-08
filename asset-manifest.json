@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/NothingWoodPub/static/css/main.d07df4b7.css",
+    "main.js": "/NothingWoodPub/static/js/main.b212fdd5.js",
+    "static/js/787.0368f5f4.chunk.js": "/NothingWoodPub/static/js/787.0368f5f4.chunk.js",
+    "static/media/tree-background.jpg": "/NothingWoodPub/static/media/tree-background.027b9577504b7b3171e4.jpg",
+    "static/media/nothing-logo-sqare.png": "/NothingWoodPub/static/media/nothing-logo-sqare.3efcfe92fa0607a0d36e.png",
+    "static/media/nothinglogo.png": "/NothingWoodPub/static/media/nothinglogo.5dd1b7bb976f3900e9d4.png",
+    "static/media/tembar-board.webp": "/NothingWoodPub/static/media/tembar-board.92d63f23986cddabafb0.webp",
+    "index.html": "/NothingWoodPub/index.html",
+    "main.d07df4b7.css.map": "/NothingWoodPub/static/css/main.d07df4b7.css.map",
+    "main.b212fdd5.js.map": "/NothingWoodPub/static/js/main.b212fdd5.js.map",
+    "787.0368f5f4.chunk.js.map": "/NothingWoodPub/static/js/787.0368f5f4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d07df4b7.css",
+    "static/js/main.b212fdd5.js"
+  ]
+}
