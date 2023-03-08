@@ -1,38 +1,174 @@
-.App {
-  text-align: center;
+.App-Header{
+  background-color: #d7ccc8;
+  height: 56px;
+  box-shadow: black 0px 1px 3px;
+}
+.App-Header-Logo{
+  height: 56px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Title-Wrapper{
+  width: 100%;
+  height: 156px;
+  background-image:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3) ),url(assets/tree-background.jpg);
+  overflow: hidden;
+  background-position: center center;
+  background-size: cover;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Title-Text{
+  font-size: 30pt;
+  margin-top:30px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content:center;
+  align-items:center;
+  font-weight: bold;
+  color:white;
+}
+
+.Title-Divider{
   color: white;
+  background-color: white;
+  height: 3px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
-.App-link {
-  color: #61dafb;
+.Palette{
+  padding: 30px;
+}
+.Tembar-board{
+  position:relative;
+  background-image: url(assets/tembar-board.webp);
+  height: 200px;
+  width: 700px;
+}
+.TB-slot{
+  height:70px;
+  width: 40px;
+  background-color: burlywood;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.TB-slot-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.Input-Form{
+  height: auto;
+  width: 400px;
+  background-color: burlywood;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: black 0px 1px 3px;
+  margin-left: 30px;
+}
+
+
+.form {
+  background: #0e101c;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  box-shadow: black 0px 1px 3px;
+}
+
+label {
+  line-height: 2;
+  text-align: left;
+  display: block;
+  margin-bottom: 13px;
+  margin-top: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}
+
+button[type="submit"],
+input[type="submit"] {
+  background: #5493ff;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  font-weight: bold;
+  letter-spacing: 10px;
+}
+
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+  background: #335ca3;
+}
+
+button[type="submit"]:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+  transition: 0.3s all;
+  transform: translateY(3px);
+  border: 1px solid transparent;
+  opacity: 0.8;
+}
+
+input:disabled {
+  opacity: 0.4;
+}
+
+input[type="button"]:hover {
+  transition: 0.3s all;
+}
+
+button[type="submit"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+}
+
+.App {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+button[type="button"] {
+  display: block;
+  appearance: none;
+  background: #333;
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+hr {
+  margin-top: 30px;
+}
+
+button {
+  display: block;
+  appearance: none;
+  margin-top: 40px;
+  border: 1px solid #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
