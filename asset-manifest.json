@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "/NothingWoodOrder/static/css/main.cac068f1.css",
-    "main.js": "/NothingWoodOrder/static/js/main.fbbbea7e.js",
+    "main.css": "/NothingWoodOrder/static/css/main.543d767b.css",
+    "main.js": "/NothingWoodOrder/static/js/main.72c5f2c6.js",
     "static/js/787.0368f5f4.chunk.js": "/NothingWoodOrder/static/js/787.0368f5f4.chunk.js",
     "static/media/tree-background.jpg": "/NothingWoodOrder/static/media/tree-background.027b9577504b7b3171e4.jpg",
     "static/media/nothing-logo-sqare.png": "/NothingWoodOrder/static/media/nothing-logo-sqare.3efcfe92fa0607a0d36e.png",
     "static/media/nothinglogo.png": "/NothingWoodOrder/static/media/nothinglogo.5dd1b7bb976f3900e9d4.png",
-    "static/media/tembar-board.webp": "/NothingWoodOrder/static/media/tembar-board.92d63f23986cddabafb0.webp",
     "index.html": "/NothingWoodOrder/index.html",
-    "main.cac068f1.css.map": "/NothingWoodOrder/static/css/main.cac068f1.css.map",
-    "main.fbbbea7e.js.map": "/NothingWoodOrder/static/js/main.fbbbea7e.js.map",
+    "main.543d767b.css.map": "/NothingWoodOrder/static/css/main.543d767b.css.map",
+    "main.72c5f2c6.js.map": "/NothingWoodOrder/static/js/main.72c5f2c6.js.map",
     "787.0368f5f4.chunk.js.map": "/NothingWoodOrder/static/js/787.0368f5f4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cac068f1.css",
-    "static/js/main.fbbbea7e.js"
+    "static/css/main.543d767b.css",
+    "static/js/main.72c5f2c6.js"
   ]
 }
