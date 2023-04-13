@@ -17,9 +17,46 @@ import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image'
 export default function App() {
   const ref = useRef();
 
+  function captureScreenshot() {
+    const bodyElement = document.body;
+    const captureElement = document.querySelector("#capture");
+    const captureWidth = bodyElement.offsetWidth;
+    const captureHeight = captureElement.offsetHeight;
+    
+    // input 요소의 값을 추출하여 이미지에 포함시키기 위해 cloneNode를 사용하여
+    // 캡쳐 대상에서 제외시키고, 값을 캡쳐할 이미지에 포함시킨 후 다시 복원합니다.
+    const inputElements = captureElement.querySelectorAll("input");
+    const inputValues = Array.from(inputElements).map((el) => {
+      const value = el.value;
+      el.value = "";
+      const valueElement = document.createElement("span");
+      valueElement.innerText = value;
+      el.parentNode.insertBefore(valueElement, el);
+      return { el, value };
+    });
+  
+    html2canvas(captureElement, {
+      width: captureWidth,
+      height: captureHeight,
+    }).then(function (canvas) {
+      const link = document.createElement("a");
+      link.download = "screenshot.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+  
+      // 캡쳐할 이미지에 포함시켰던 input 요소 값의 텍스트 노드를 제거하고
+      // 원래 값을 다시 복원합니다.
+      inputValues.forEach(({ el, value }) => {
+        const valueElement = el.previousSibling;
+        valueElement.parentNode.removeChild(valueElement);
+        el.value = value;
+      });
+    });
+  }
   
   const handleCapture = () => {
-    htmlToImage.toPng(ref.current, { style: { backgroundColor: 'white' } })
+    htmlToImage.toPng(ref.current, { 
+      style: { backgroundColor: 'white' } })
       .then(function (dataUrl) {
         const link = document.createElement('a');
         link.download = 'capture.png';
@@ -27,6 +64,17 @@ export default function App() {
         link.click();
       });
   };
+
+
+  // function captureScreenshot() {
+  //   html2canvas(ref.current,{
+  //   }).then(function(canvas) {
+  //     const link = document.createElement("a");
+  //     link.download = "screenshot.png";
+  //     link.href = canvas.toDataURL("image/png");
+  //     link.click();
+  //   });
+  // }
 
 
 
@@ -227,6 +275,7 @@ export default function App() {
     width: buildWidth+"px",
     height: buildHeight+"px",
     border: "black 1px solid",
+    backgroundColor: "white"
   }
 
 
@@ -267,7 +316,7 @@ export default function App() {
           <button className="input-button" onClick={clearAll}>박스 전체 삭제</button>
           
           </div>
-        <div ref={ref} style={{padding:"25px"}}>
+        <div ref={ref} id="capture" style={{padding:"25px"}}>
 
             <svg width={buildWidth+50} height={40}>
             <PathLine points={[{x:50,y:20},{x:parseInt(buildWidth)+50,y:20}]} stroke="black" strokeWidth="2" fill="none" r={10}/>
@@ -275,7 +324,7 @@ export default function App() {
             </svg>
 
             <div style={{display:"flex"}}>
-              <svg xmlns="http://www.w3.org/2000/svg" width={50} height={buildHeight}>
+              <svg width={50} height={buildHeight}>
               <text x={24} y={buildHeight/2} width={50} height={200} transform={`rotate(90, 24, ${buildHeight/2})`}>{height}</text>
               <PathLine 
                 points={[{x:20, y:0},{x:20, y:buildHeight}]}
@@ -287,11 +336,8 @@ export default function App() {
               </svg>
 
               <div style={divStyle}>
-                
-              <svg xmlns="http://www.w3.org/2000/svg" width={buildWidth} height={buildHeight}>
+              <svg width={buildWidth} height={buildHeight}>
               {LineList}
-
-              {boxList}
               </svg>
               {boxList}
               </div>
@@ -299,7 +345,7 @@ export default function App() {
           </div>
       </div>)}
       
-      <button style={{backgroundColor:"red"}}className="input-button" onClick={handleCapture}>도안 캡쳐</button>
+      <button style={{backgroundColor:"red"}}className="input-button" onClick={captureScreenshot}>도안 캡쳐</button>
       
     </div>
     </Wrapper>
