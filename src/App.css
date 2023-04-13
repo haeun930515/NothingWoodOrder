@@ -43,16 +43,13 @@
   border: black 1px solid;
 }
 .TB-slot{
-  background-color: white;
-  border: black 1px solid;
   padding: 10px;
   font-size: 17px;
-  height: 120px;
 }
 
 .Input-Form{
   height: auto;
-  width: 200px;
+  width: 300px;
   background-color: burlywood;
   padding: 15px;
   border-radius: 8px;
@@ -84,9 +81,17 @@ background: #5493ff;
 
 .input-box{
   border: 0px solid black;
-  font-size: 17px;
+  font-size: 15px;
+  width: 70px;
+  padding:5px;
 }
-
+.input-box-button{
+  padding: 5px;
+  margin-left: 15px;
+  margin-top:0px;
+  justify-content: center;
+  align-content: center;
+}
 
 input {
   display: block;
