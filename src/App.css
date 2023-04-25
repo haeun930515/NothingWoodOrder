@@ -34,6 +34,14 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+.Title-Sub-Text{
+  color: white;
+  font-size: 20px;
+  margin-top: 3px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
 
 .Palette{
   padding: 30px;
@@ -49,12 +57,17 @@
 
 .Input-Form{
   height: auto;
-  width: 300px;
-  background-color: burlywood;
+  width: 750px;
+  background-color: #f5f5f5;
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: black 0px 1px 3px;
-  margin-left: 30px;
+  border-radius: 2px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.radio{
+  border:none;
+  width: 16px;
+  margin-right: 10px;
+  
 }
 
 .input-button{
@@ -78,32 +91,22 @@ background: #5493ff;
 .input-button:hover{
   background: #335ca3;
 }
-
+.input-col{
+  margin-top:10px;
+}
 .input-box{
-  border: 0px solid black;
-  font-size: 15px;
-  width: 70px;
+  border: 0.1px solid black;
+  font-size: 18px;
+  width: 50px;
   padding:5px;
 }
 .input-box-button{
   padding: 5px;
-  margin-left: 15px;
   margin-top:0px;
   justify-content: center;
   align-content: center;
 }
 
-input {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid white;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  box-shadow: black 0px 1px 3px;
-}
 
 label {
   line-height: 2;
@@ -122,12 +125,14 @@ input[type="submit"] {
   color: white;
   text-transform: uppercase;
   border: none;
+  border-radius: 8px;
   margin-top: 40px;
   padding: 20px;
   font-size: 16px;
   font-weight: 100;
   font-weight: bold;
 }
+
 
 button[type="submit"]:hover,
 input[type="submit"]:hover {
@@ -185,4 +190,8 @@ button {
   text-transform: uppercase;
   padding: 10px 20px;
   border-radius: 4px;
+}
+
+.input-liner{
+  width: 70px;
 }
