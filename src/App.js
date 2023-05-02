@@ -9,14 +9,20 @@ import {ImCheckmark2} from "react-icons/im"
 import {AiFillChrome} from "react-icons/ai"
 import {BsRulers} from "react-icons/bs";
 import {PathLine} from 'react-svg-pathline'
+import {BsLightbulbFill} from 'react-icons/bs'
+import {FaRegStickyNote} from 'react-icons/fa'
+import {FaExclamation} from 'react-icons/fa'
 import NothingLogo from '../src/assets/nothing-logo-sqare.png';
 import NothingLogoText from '../src/assets/nothinglogo.png';
 import './App.css';
 import Select from 'react-select'
 import Draggable from "react-draggable";
+import calculate from "./calculate";
 
 export default function App() {
   const ref = useRef();
+
+  const [result,setResult] = useState("결과");
 
   function captureScreenshot() {
     const captureElement = document.querySelector("#capture");
@@ -146,6 +152,8 @@ export default function App() {
   const addBox = () => {
     if(boxList.length == 5){
       alert("박스 개수가 6개 이상인 경우 전화 주문 부탁드립니다")
+    } else if(checkBoxes() != ""){
+      alert(checkBoxes())
     } else {
     var i = boxList.length
     setBoxList([...boxList,
@@ -169,7 +177,7 @@ export default function App() {
     }}>
       <div style={{backgroundColor:"white",border:"1px black solid", width:"80px",height:"70px",display:"flex",justifyContent:"flex-start"}}>
         <div style={{border:"1px black solid"}}>
-        <svg width={"100%"} height={"20%"} x={0} y={10}><PathLine points={[{x:0,y:10},{x:600,y:10}]} stroke="black" strokeWidth="2" fill="none" r={10}/></svg>
+        <svg width={"100%"} height={"20%"} x={0} y={10}><PathLine points={[{x:0,y:10},{x:buildWidth,y:10}]} stroke="black" strokeWidth="2" fill="none" r={10}/></svg>
         <strong><input placeholder="가로" style={{width:"40px",height:"20px"}} defaultValue={boxWidthList[i]}
         onChange={(event) => {
           if(i===0) {
@@ -322,13 +330,13 @@ export default function App() {
       if(box.x != 0){
       setLineList(prevList => [
         ...prevList,<PathLine
-        points={[{x:box.x,y:0},{x:box.x,y:600}]}
+        points={[{x:box.x,y:0},{x:box.x,y:buildHeight}]}
         stroke="black"
         strokeWidth="2"
         fill="none"
         r={10}/>,
         <PathLine 
-        points={[{x:0, y:yy},{x:600, y:yy}]}
+        points={[{x:0, y:yy},{x:buildWidth, y:yy}]}
         stroke="black" 
         strokeWidth="2"
         fill="none"
@@ -336,9 +344,9 @@ export default function App() {
 
         <foreignObject
           id="myForeign"
-          x={box.x/2}
+          x={box.x-100}
           y={yy}
-          width={80}
+          width={40}
           height={40}
         >
           <input type="text" className="input-liner"  defaultValue={boxLeftList[index]} 
@@ -348,9 +356,9 @@ export default function App() {
         <foreignObject
         id="myForeign"
           x={box.x}
-          y={yy/2}
+          y={yy-50}
           width={80}
-          height={120}
+          height={80}
           >
           <input type="text" className="input-liner" defaultValue={boxTopList[index]}
           onChange={(event)=> {handleTop(event,index)}}/>
@@ -359,7 +367,7 @@ export default function App() {
         <foreignObject
         id="myForeign"
           x={box.x}
-          y={(600-yy-50)/2+yy+50}
+          y={yy+100}
           width={80}
           height={120}
         >
@@ -369,7 +377,7 @@ export default function App() {
 
         <foreignObject
         id="myForeign"
-          x={(600-box.x-50)/2+box.x + 50}
+          x={box.x+100}
           y={yy}
           width={80}
           height={40}
@@ -424,9 +432,23 @@ export default function App() {
   //전체 보드 가로, 세로입력 함수
   const {register, handleSubmit} =useForm();
   const onSubmit = () => {
-    setVisible(true);
-    setBuildWidth(600);
-    setBuildHeight(600);
+    var errormsg = ""
+    if(width<300 || width>5000){
+      errormsg += "도안 가로 길이를 확인해주세요\n"
+    }
+    if(height<100 || height>2400){
+      errormsg += "도안 세로 길이를 확인해주세요\n"
+    }
+
+    if(errormsg!=""){
+      alert(errormsg)
+    } else {
+      setResult(calculate(width,height));
+      setVisible(true);
+      setBuildWidth(500 + width/10);
+      setBuildHeight(500 + height/10);
+      
+    }
   }
 
   const divStyle = {
@@ -437,8 +459,7 @@ export default function App() {
   }
 
   //전체 치수 검사 함수
-  
-  const checkAll = () => {
+  const checkBoxes = () => {
 
     var errormsg = ""
 
@@ -455,63 +476,85 @@ export default function App() {
 
     if(boxList.length >= 1){
       if(box1horizontal != width){
-        console.log("첫번째 상자 가로 오류")
-        errormsg += "첫번째 상자 가로 오류\n"
+        errormsg += "1번 상자의 가로 치수와, 좌우 간격을 확인해주세요\n"
       }
       if(box1vertical != height){
-        console.log("첫번째 상자 세로 오류")
-        errormsg += "첫번째 상자 세로 오류\n"
+        errormsg += "1번 상자의 세로 치수와, 상하 간격을 확인해주세요\n"
       }
     }
     if(boxList.length >= 2){
       if(box2horizontal != width){
-        console.log("두번째 상자 가로 오류")
-        errormsg += "두번째 상자 가로 오류\n"
+        errormsg += "2번 상자의 가로 치수와, 좌우 간격을 확인해주세요\n"
       }
       if(box2vertical != height){
-        console.log("두번째 상자 세로 오류")
-        errormsg += "두번째 상자 세로 오류\n"
+        errormsg += "2번 상자의 세로 치수와, 상하 간격을 확인해주세요\n"
       }
     }
     if(boxList.length >= 3){
       if(box3horizontal != width){
-        console.log("세번째 상자 가로 오류")
-        errormsg += "세번째 상자 가로 오류\n"
+        errormsg += "3번 상자의 가로 치수와, 좌우 간격을 확인해주세요\n"
       }
       if(box3vertical != height){
-        console.log("세번째 상자 세로 오류")
-        errormsg += "세번째 상자 세로 오류\n"
+        errormsg += "3번 상자의 세로 치수와, 상하 간격을 확인해주세요\n"
       }
     }
     if(boxList.length >= 4){
       if(box4horizontal != width){
-        console.log("네번쨰 상자 가로 오류")
-        errormsg += "네번쨰 상자 가로 오류\n"
+        errormsg += "4번 상자의 가로 치수와, 좌우 간격을 확인해주세요\n"
       }
       if(box4vertical != height){
-        console.log("네번째 상자 세로 오류")
-        errormsg += "네번째 상자 세로 오류\n"
+        errormsg += "4번 상자의 세로 치수와, 상하 간격을 확인해주세요\n"
       }
     }
     if(boxList.length == 5){
       if(box5horizontal != width){
-        console.log("다섯번째 상자 가로 오류")
-        errormsg += "다섯번째 상자 가로 오류\n"
+        errormsg += "5번 상자의 가로 치수와, 좌우 간격을 확인해주세요\n"
       }
       if(box5vertical != height){
-        console.log("다섯번째 상자 세로 오류")
-        errormsg += "다섯번째 상자 세로 오류\n"
+        errormsg += "5번 상자의 세로 치수와, 상하 간격을 확인해주세요\n"
       }
     }
+    return errormsg
+  }
+  
+  const checkAll = () => {
 
-    if(errormsg == ""){
+    if(checkBoxes() == ""){
       captureScreenshot()
     } else {
-      alert(errormsg);
+      alert(checkBoxes());
     }
   }
 
+  const tablehead=[
+    {No:1, 가로:box1Width, 세로:box1Height, "~왼쪽 모서리":box1Left,"~오른쪽 모서리":box1Right,"~위쪽 모서리":box1Top,"~아래쪽 모서리":box1Bottom},
+    {No:2, 가로:box2Width, 세로:box2Height, "~왼쪽 모서리":box2Left,"~오른쪽 모서리":box2Right,"~위쪽 모서리":box2Top,"~아래쪽 모서리":box2Bottom},
+    {No:3, 가로:box3Width, 세로:box3Height, "~왼쪽 모서리":box3Left,"~오른쪽 모서리":box3Right,"~위쪽 모서리":box3Top,"~아래쪽 모서리":box3Bottom},
+    {No:4, 가로:box4Width, 세로:box4Height, "~왼쪽 모서리":box4Left,"~오른쪽 모서리":box4Right,"~위쪽 모서리":box4Top,"~아래쪽 모서리":box4Bottom},
+    {No:5, 가로:box5Width, 세로:box5Height, "~왼쪽 모서리":box5Left,"~오른쪽 모서리":box5Right,"~위쪽 모서리":box5Top,"~아래쪽 모서리":box5Bottom},
+    
+  ]
+  const column = Object.keys(tablehead[0]);
+  const thdata = () => {
+    return column.map((data) => {
+      return <th key={data}>{data}</th>
+    })
+  }
 
+  const tdData =() =>{
+   
+    return tablehead.map((data)=>{
+      return(
+          <tr>
+               {
+                  column.map((v)=>{
+                      return <td>{data[v]}</td>
+                  })
+               }
+          </tr>
+      )
+    })
+}
 
   return (
     //header
@@ -566,16 +609,25 @@ export default function App() {
           <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} type="text" value={height} placeholder="세로 (mm)"onChange={handleHeight}/>
         </div>
         <input type="submit" value="도안 생성"></input>
+        {visible && (<div style={{marginTop:"10px",fontWeight:"bold"}}> <FaExclamation style={{marginRight:"3px"}}/> 페이지 하단에 도안이 생성되었습니다</div>)}
       </form>
+
+      <div style={{display:"flex",fontSize:"16px",padding:"2px",marginBottom:"10px",marginTop:"20px",alignItems:"center"}}> 
+      <BsLightbulbFill style={{marginRight:"3px"}}/> <div style={{fontSize:"16px",fontWeight:"bold"}}>- 계산결과</div></div>
+
+      <div style={{marginLeft:"10px",marginRight:"10px",height:"45px",backgroundColor:"rgba(140, 158, 255, 0.3)",borderRadius:"4px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <text style={{fontSize:"16px",fontWeight:"bold"}}>{result}</text>
+      </div>
     </div>
 
     </div>
     <div style={{padding:"20px"}}>
       {visible && (
-        <div>
+        <div style={{border:"0.1px solid black",padding:"15px",borderRadius:"8px"}}>
+          <span style={{borderRadius:"6px",width:"70px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}><FaRegStickyNote style={{marginRight:"3px"}}/>도안</span>
           <div style={{display:"flex"}}>
           <button className="input-button" onClick={addBox}>박스 추가</button>
-          <button style={{marginLeft:"15px"}} className="input-button" onClick={clearAll}>박스 전체 삭제</button>
+          <button style={{marginLeft:"15px",background: "#ff0000"}} className="input-button" onClick={clearAll}>박스 전체 삭제</button>
           
           </div>
           
@@ -608,10 +660,21 @@ export default function App() {
             <PathLine points={[{x:50,y:15},{x:parseInt(buildWidth)+50,y:15}]} stroke="black" strokeWidth="2" fill="none" r={10}/>
             <text style={{fontSize:"36px"}} x={buildWidth/2} y={58} width={50} height={40}>{width}</text>
             </svg>
-
+            <span style={{borderRadius:"6px",width:"300px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}>붙이는 템바보드 디자인 : {radio}</span>
+            <span style={{marginTop:"5px",borderRadius:"6px",width:"200px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}>몰딩 : {mold.label}</span>
+            
+            <div>
+            <table>
+              <thead>
+                <tr>{thdata()}</tr>
+              </thead>
+              <tbody>
+                {tdData()}
+              </tbody>
+            </table>
             </div>
-            <div>붙이는 템바보드 디자인 : {radio}</div>
-            <div>몰딩 : {mold.label}</div>
+            </div>
+            
             <button style={{backgroundColor:"red"}} className="input-button" onClick={checkAll}>도안 캡쳐</button>
       </div>)}
       

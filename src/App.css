@@ -75,8 +75,6 @@ background: #5493ff;
   color: white;
   text-transform: uppercase;
   border: none;
-  margin-top: 40px;
-  padding: 20px;
   font-size: 16px;
   font-weight: 100;
   font-weight: bold;
@@ -184,7 +182,7 @@ hr {
 button {
   display: block;
   appearance: none;
-  margin-top: 40px;
+  margin-top: 10px;
   border: 1px solid #333;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -193,5 +191,5 @@ button {
 }
 
 .input-liner{
-  width: 70px;
+  width: 30px;
 }
