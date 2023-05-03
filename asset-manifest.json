@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/NothingWoodOrder/static/css/main.b344b1f5.css",
-    "main.js": "/NothingWoodOrder/static/js/main.24d59644.js",
+    "main.css": "/NothingWoodOrder/static/css/main.7645dbf3.css",
+    "main.js": "/NothingWoodOrder/static/js/main.d454394c.js",
     "static/js/787.0368f5f4.chunk.js": "/NothingWoodOrder/static/js/787.0368f5f4.chunk.js",
     "static/media/tree-background.jpg": "/NothingWoodOrder/static/media/tree-background.027b9577504b7b3171e4.jpg",
     "static/media/nothing-logo-sqare.png": "/NothingWoodOrder/static/media/nothing-logo-sqare.3efcfe92fa0607a0d36e.png",
     "static/media/nothinglogo.png": "/NothingWoodOrder/static/media/nothinglogo.5dd1b7bb976f3900e9d4.png",
     "index.html": "/NothingWoodOrder/index.html",
-    "main.b344b1f5.css.map": "/NothingWoodOrder/static/css/main.b344b1f5.css.map",
-    "main.24d59644.js.map": "/NothingWoodOrder/static/js/main.24d59644.js.map",
+    "main.7645dbf3.css.map": "/NothingWoodOrder/static/css/main.7645dbf3.css.map",
+    "main.d454394c.js.map": "/NothingWoodOrder/static/js/main.d454394c.js.map",
     "787.0368f5f4.chunk.js.map": "/NothingWoodOrder/static/js/787.0368f5f4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b344b1f5.css",
-    "static/js/main.24d59644.js"
+    "static/css/main.7645dbf3.css",
+    "static/js/main.d454394c.js"
   ]
 }
