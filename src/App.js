@@ -12,6 +12,8 @@ import {PathLine} from 'react-svg-pathline'
 import {BsLightbulbFill} from 'react-icons/bs'
 import {FaRegStickyNote} from 'react-icons/fa'
 import {FaExclamation} from 'react-icons/fa'
+import NaverLogo from '../src/assets/naver.png'
+import ONLogo from '../src/assets/bucketplace.webp'
 import NothingLogo from '../src/assets/nothing-logo-sqare.png';
 import NothingLogoText from '../src/assets/nothinglogo.png';
 import './App.css';
@@ -23,6 +25,7 @@ export default function App() {
   const ref = useRef();
 
   const [result,setResult] = useState("결과");
+  const [imgComplete, setImgComplete] = useState(false);
 
   function captureScreenshot() {
     const captureElement = document.querySelector("#capture");
@@ -51,6 +54,8 @@ export default function App() {
       link.href = canvas.toDataURL("image/png");
       link.click();
   
+      setImgComplete(true);
+      alert("캡쳐된 이미지를 주문과 함께 첨부해 주세요")
       // 캡쳐할 이미지에 포함시켰던 input 요소 값의 텍스트 노드를 제거하고
       // 원래 값을 다시 복원합니다.
       inputValues.forEach(({ el, value }) => {
@@ -445,8 +450,8 @@ export default function App() {
     } else {
       setResult(calculate(width,height));
       setVisible(true);
-      setBuildWidth(500 + width/10);
-      setBuildHeight(500 + height/10);
+      setBuildWidth(400 + width/8);
+      setBuildHeight(400 + height/8);
       
     }
   }
@@ -664,7 +669,7 @@ export default function App() {
             <span style={{marginTop:"5px",borderRadius:"6px",width:"200px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}>몰딩 : {mold.label}</span>
             
             <div>
-            <table>
+            <table style={{borderSpacing:"20px 10px"}}>
               <thead>
                 <tr>{thdata()}</tr>
               </thead>
@@ -674,8 +679,16 @@ export default function App() {
             </table>
             </div>
             </div>
-            
-            <button style={{backgroundColor:"red"}} className="input-button" onClick={checkAll}>도안 캡쳐</button>
+            <span><button style={{backgroundColor:"red"}} className="input-button" onClick={checkAll}>도안 캡쳐</button></span>
+            {imgComplete && <div>
+              <h5>아래 이미지를 클릭해서 주문하실 사이트로 이동해주세요!</h5>
+              <a href="https://smartstore.naver.com/sscm/products/6328773563">
+                <img style={{width:"40px",height:"40px"}} src={NaverLogo}/>
+              </a>
+              <a href="https://ohouse.onelink.me/2107755860/bf28a597">
+                <img style={{width:"40px",height:"40px",marginLeft:"40px"}} src={ONLogo}/>
+              </a>
+              </div>}
       </div>)}
       
       
