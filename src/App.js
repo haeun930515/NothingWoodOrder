@@ -349,7 +349,7 @@ export default function App() {
 
         <foreignObject
           id="myForeign"
-          x={box.x-100}
+          x={(box.x-100)/2+20}
           y={yy}
           width={40}
           height={40}
@@ -361,7 +361,7 @@ export default function App() {
         <foreignObject
         id="myForeign"
           x={box.x}
-          y={yy-50}
+          y={(yy-50)/2}
           width={80}
           height={80}
           >
@@ -372,7 +372,7 @@ export default function App() {
         <foreignObject
         id="myForeign"
           x={box.x}
-          y={yy+100}
+          y={yy + (buildHeight-yy)/2 + 30}
           width={80}
           height={120}
         >
@@ -382,7 +382,7 @@ export default function App() {
 
         <foreignObject
         id="myForeign"
-          x={box.x+100}
+          x={box.x + (buildWidth-box.x)/2+30}
           y={yy}
           width={80}
           height={40}
