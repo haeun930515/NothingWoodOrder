@@ -335,13 +335,13 @@ export default function App() {
       if(box.x != 0){
       setLineList(prevList => [
         ...prevList,<PathLine
-        points={[{x:box.x,y:0},{x:box.x,y:buildHeight}]}
+        points={[{x:box.x+40,y:0},{x:box.x+40,y:buildHeight}]}
         stroke="black"
         strokeWidth="2"
         fill="none"
         r={10}/>,
         <PathLine 
-        points={[{x:0, y:yy},{x:buildWidth, y:yy}]}
+        points={[{x:0, y:yy+35},{x:buildWidth, y:yy+35}]}
         stroke="black" 
         strokeWidth="2"
         fill="none"
@@ -350,7 +350,7 @@ export default function App() {
         <foreignObject
           id="myForeign"
           x={(box.x-100)/2+20}
-          y={yy}
+          y={yy+35}
           width={40}
           height={40}
         >
@@ -360,7 +360,7 @@ export default function App() {
 
         <foreignObject
         id="myForeign"
-          x={box.x}
+          x={box.x+40}
           y={(yy-50)/2}
           width={80}
           height={80}
@@ -371,7 +371,7 @@ export default function App() {
 
         <foreignObject
         id="myForeign"
-          x={box.x}
+          x={box.x+40}
           y={yy + (buildHeight-yy)/2 + 30}
           width={80}
           height={120}
@@ -383,7 +383,7 @@ export default function App() {
         <foreignObject
         id="myForeign"
           x={box.x + (buildWidth-box.x)/2+30}
-          y={yy}
+          y={yy+35}
           width={80}
           height={40}
         >
