@@ -28,7 +28,7 @@
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://haeun930515.github.io/NothingWoodOrder/",
+  "homepage": "https://haeun930515.github.io/NothingWoodOrder",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

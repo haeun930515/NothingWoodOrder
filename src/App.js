@@ -155,6 +155,7 @@ export default function App() {
 
 
   const addBox = () => {
+    alert("콘센트 위치에 맞게 마우스 or 손으로 꾹 눌러서 위치를 조정해주세요")
     if(boxList.length == 5){
       alert("박스 개수가 6개 이상인 경우 전화 주문 부탁드립니다")
     } else if(checkBoxes() != ""){
@@ -198,7 +199,6 @@ export default function App() {
           }
         }}  
         ></input></strong>
-        {i+1}
         </div>
         <div style={{marginTop:"25px",marginLeft:"-7px"}}>
         <strong><input placeholder="세로" style={{width:"40px",height:"20px",transform:"rotate(270deg)",paddingTop:"0px"}} defaultValue={boxHeightList[i]}
@@ -354,7 +354,7 @@ export default function App() {
           width={40}
           height={40}
         >
-          <input type="text" className="input-liner"  defaultValue={boxLeftList[index]} 
+          <input type="text" className="input-liner"  defaultValue={boxLeftList[index]} onBlur={boxLeftList[index]}
           onChange={(event) => {handleLeft(event,index)}}/>
         </foreignObject>,
 
@@ -438,12 +438,12 @@ export default function App() {
   const {register, handleSubmit} =useForm();
   const onSubmit = () => {
     var errormsg = ""
-    if(width<300 || width>5000){
-      errormsg += "도안 가로 길이를 확인해주세요\n"
-    }
-    if(height<100 || height>2400){
-      errormsg += "도안 세로 길이를 확인해주세요\n"
-    }
+    // if(width<300 || width>5000){
+    //   errormsg += "도안 가로 길이를 확인해주세요\n"
+    // }
+    // if(height<100 || height>2400){
+    //   errormsg += "도안 세로 길이를 확인해주세요\n"
+    // }
 
     if(errormsg!=""){
       alert(errormsg)
@@ -461,6 +461,16 @@ export default function App() {
     height: buildHeight+"px",
     border: "black 1px solid",
     backgroundColor: "white"
+  }
+  //전체 치수 계산 함수
+  const calculateNumbers = () => {
+      
+    if(parseInt(box1Height)!= 0){
+      if(parseInt(box1Top)!= 0){
+        setBox1Bottom(height-parseInt(box1Height)-parseInt(box1Top));
+      }
+    }
+    
   }
 
   //전체 치수 검사 함수
@@ -580,9 +590,10 @@ export default function App() {
         <text style={{fontWeight:"bold",fontSize:"16px"}}>제품은 <text style={{color:"red"}}>cm</text>가 아닌 <text style={{color:"red"}}>mm</text>기준입니다. <text style={{color:"red"}}>(10cm = 100mm)</text></text>
       </div>
     </div>
-    <div style={{display:"flex", justifyContent:"center"}}>
+
+    <div style={{display:"flex",alignItems:"center",flexDirection:"column",overflow:"scroll"}}>
     
-    <div className="Input-Form">
+      <div className="Input-Form">
       
       <div style={{display:"flex",fontSize:"20px",padding:"2px",marginBottom:"15px",alignItems:"center"}}> 
       <BsFillCalculatorFill style={{marginRight:"3px"}}/> <div style={{fontSize:"20px",fontWeight:"bold"}}>템바보드 계산기</div></div>
@@ -605,13 +616,33 @@ export default function App() {
         <div style={{marginTop:"15px",display:"flex",fontSize:"16px",padding:"2px",marginBottom:"10px",alignItems:"center"}}> 
         <BsRulers style={{marginRight:"3px"}}/> <div style={{fontSize:"16px",fontWeight:"bold"}}>- 치수 입력(mm)</div></div>
 
-        <div className="input-col">
-          <div>도안 가로 길이 (300 ~ 5000)</div>
-          <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} value={width} placeholder="가로 (mm)" onChange={handleWidth}/>
-        </div>
-        <div className="input-col">
-          <div>도안 세로 길이 (100 ~ 2400)</div>
-          <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} type="text" value={height} placeholder="세로 (mm)"onChange={handleHeight}/>
+        <div style={{display:"flex"}}>
+          <div>
+            <div className="input-col">
+              <div>도안 가로 길이</div>
+              <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} value={width} placeholder="가로 (mm)" onChange={handleWidth}/>
+            </div>
+            <div className="input-col">
+              <div>도안 세로 길이</div>
+              <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} type="text" value={height} placeholder="세로 (mm)"onChange={handleHeight}/>
+            </div>
+          </div>
+          <div style={{border:"2px black solid", marginLeft:"15px",padding:"15px"}}>
+            <div style={{fontSize:"16px",fontWeight:"bold"}}>예시 1</div>
+            <div>가로 1200mm</div>
+            <div>세로 2400mm</div>
+            <div style={{fontSize:"16px",fontWeight:"bold",marginTop:"10px"}}>결과</div>
+            <div>600 x 2400 2개</div>
+          </div>
+          <div style={{border:"2px black solid", marginLeft:"15px",padding:"15px"}}>
+            <div style={{fontSize:"16px",fontWeight:"bold"}}>예시 2</div>
+            <div>가로 3000mm</div>
+            <div>세로 2400mm</div>
+            <div>(몰딩 위에만)</div>
+            <div style={{fontSize:"16px",fontWeight:"bold",marginTop:"10px"}}>결과</div>
+            <div>300 x 2400 1개</div>
+            <div>600 x 2400 2개</div>
+          </div>
         </div>
         <input type="submit" value="도안 생성"></input>
         {visible && (<div style={{marginTop:"10px",fontWeight:"bold"}}> <FaExclamation style={{marginRight:"3px"}}/> 페이지 하단에 도안이 생성되었습니다</div>)}
@@ -624,17 +655,29 @@ export default function App() {
         <text style={{fontSize:"16px",fontWeight:"bold"}}>{result}</text>
       </div>
     </div>
-
+    
+    
     </div>
-    <div style={{padding:"20px"}}>
+    
+    <div className="responsive">
       {visible && (
-        <div style={{border:"0.1px solid black",padding:"15px",borderRadius:"8px"}}>
-          <span style={{borderRadius:"6px",width:"70px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}><FaRegStickyNote style={{marginRight:"3px"}}/>도안</span>
-          <div style={{display:"flex"}}>
-          <button className="input-button" onClick={addBox}>박스 추가</button>
-          <button style={{marginLeft:"15px",background: "#ff0000"}} className="input-button" onClick={clearAll}>박스 전체 삭제</button>
-          
-          </div>
+        <div style={{border:"0.1px solid black",padding:"15px",borderRadius:"8px",height:`${buildHeight+530}`+"px",width:`${buildWidth+100}`+"px"}}>
+            
+            <div style={{display:"flex",justifyContent:'center'}}>
+              <div>
+                <span style={{borderRadius:"6px",width:"70px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}>
+                  <FaRegStickyNote style={{marginRight:"3px"}}/>도안
+                </span>
+                <span>
+                  - 20mm 단위로 입력해주세요.
+                </span>
+                <div style={{display:"flex"}}>
+                  <button className="input-button" onClick={addBox}>박스 추가</button>
+                  <button style={{marginLeft:"15px",background: "#ff0000"}} className="input-button" onClick={clearAll}>박스 전체 삭제</button>
+                  {/* <button style={{marginLeft:"25px",background: "#47E1A8"}} className="input-button" onClick={calculateNumbers}>나머지 수치 계산</button> */}
+                </div>
+              </div>
+            </div>
           
             <div ref={ref} id="capture" style={{padding:"25px",overflowX:"visible"}}>
               <div style={{display:"flex",justifyContent:"flex-start"}}>
@@ -697,7 +740,8 @@ export default function App() {
     </Wrapper>
   );
 }
-
+//
+  // "homepage": "https://limkyuseob.github.io/StickyTembarCalculator/",
 const Wrapper = styled.div`
   height: 100vh;
   max-width: 100%;
