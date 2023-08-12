@@ -27,6 +27,7 @@ export default function App() {
   const [result,setResult] = useState("결과");
   const [imgComplete, setImgComplete] = useState(false);
 
+  //반영
   function captureScreenshot() {
     const captureElement = document.querySelector("#capture");
     const captureWidth = captureElement.scrollWidth;
