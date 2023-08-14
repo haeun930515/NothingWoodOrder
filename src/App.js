@@ -13,6 +13,7 @@ import {BsLightbulbFill} from 'react-icons/bs'
 import {FaRegStickyNote} from 'react-icons/fa'
 import {FaExclamation} from 'react-icons/fa'
 import NaverLogo from '../src/assets/naver.png'
+import NothingExample from '../src/assets/nothingdoan2.jpeg'
 import ONLogo from '../src/assets/bucketplace.webp'
 import NothingLogo from '../src/assets/nothing-logo-sqare.png';
 import NothingLogoText from '../src/assets/nothinglogo.png';
@@ -56,7 +57,7 @@ export default function App() {
       link.click();
   
       setImgComplete(true);
-      alert("캡쳐된 이미지를 주문과 함께 첨부해 주세요")
+      alert("캡쳐된 이미지를 주문과 함께 네이버 톡톡으로 보내주세요!")
       // 캡쳐할 이미지에 포함시켰던 input 요소 값의 텍스트 노드를 제거하고
       // 원래 값을 다시 복원합니다.
       inputValues.forEach(({ el, value }) => {
@@ -182,7 +183,7 @@ export default function App() {
       }
       
     }}>
-      <div style={{backgroundColor:"white",border:"1px black solid", width:"80px",height:"70px",display:"flex",justifyContent:"flex-start"}}>
+      <div style={{backgroundColor:"white",border:"1px black solid", width:"100px",height:"90px",display:"flex",justifyContent:"flex-start"}}>
         <div style={{border:"1px black solid"}}>
         <svg width={"100%"} height={"20%"} x={0} y={10}><PathLine points={[{x:0,y:10},{x:buildWidth,y:10}]} stroke="black" strokeWidth="2" fill="none" r={10}/></svg>
         <strong><input placeholder="가로" style={{width:"40px",height:"20px"}} defaultValue={boxWidthList[i]}
@@ -415,20 +416,6 @@ export default function App() {
     setRadio(e.target.value)
   }
 
-  //몰딩
-  const [mold,setMold] = useState('');
-  const handleMold = (e) => {
-    setMold(e)
-  }
-
-  const options = [
-    { value: 'no-mold', label: '몰딩 없음' },
-    { value: 'top-or-bottom', label: '위쪽 혹은 아래쪽' },
-    { value: 'left-or-right', label: '왼쪽 혹은 오른쪽' },
-    { value: 'top-and-bottom', label: '위쪽 아래쪽 둘다' },
-    { value: 'left-and-right', label: '왼쪽 오른쪽 둘다' }
-  ]
-
 
 
   //전체 보드 가로, 세로 입력, 생성 클릭후 --> 결정값
@@ -445,6 +432,12 @@ export default function App() {
     // if(height<100 || height>2400){
     //   errormsg += "도안 세로 길이를 확인해주세요\n"
     // }
+    if(width<=0){
+      errormsg += "도안 가로 길이를 확인해주세요\n"
+    }
+    if(height<=0){
+      errormsg += "도안 세로 길이를 확인해주세요\n"
+    }
 
     if(errormsg!=""){
       alert(errormsg)
@@ -456,22 +449,28 @@ export default function App() {
       
     }
   }
+  //계산하기 함수
+  const onCalcul = () => {
+    var errormsg = ""
+    if(width<=0){
+      errormsg += "도안 가로 길이를 확인해주세요\n"
+    }
+    if(height<=0){
+      errormsg += "도안 세로 길이를 확인해주세요\n"
+    }
+    if(errormsg!=""){
+      alert(errormsg)
+    } else {
+      setResult(calculate(width,height));
+    }
+
+  }
 
   const divStyle = {
     width: buildWidth+"px",
     height: buildHeight+"px",
     border: "black 1px solid",
     backgroundColor: "white"
-  }
-  //전체 치수 계산 함수
-  const calculateNumbers = () => {
-      
-    if(parseInt(box1Height)!= 0){
-      if(parseInt(box1Top)!= 0){
-        setBox1Bottom(height-parseInt(box1Height)-parseInt(box1Top));
-      }
-    }
-    
   }
 
   //전체 치수 검사 함수
@@ -604,16 +603,11 @@ export default function App() {
       <IoIosHammer style={{marginRight:"3px"}}/> <div style={{fontSize:"16px",fontWeight:"bold"}}>- 붙이는 템바보드 디자인</div></div>
 
       <div style={{display:"flex", marginBottom:"14px"}}>
-        <input className="radio" type="radio" value="직각형" checked={radio === "직각형"} onChange={handleRadio}/>직각 12t
-        <input className="radio" type="radio" value="원형" checked={radio === "원형"} onChange={handleRadio}/>원형 9t
+      <input className="radio" type="radio" value="반달형" checked={radio === "반달형"} onChange={handleRadio}/>반달형 9t
+        <input className="radio" type="radio" value="직각형" checked={radio === "직각형"} onChange={handleRadio}/>직각형 12t
       </div>
 
-      <div style={{display:"flex",fontSize:"16px",padding:"2px",marginBottom:"10px",alignItems:"center"}}> 
-      <ImCheckmark2 style={{marginRight:"3px"}}/> <div style={{fontSize:"16px",fontWeight:"bold"}}>- 몰딩</div></div>
 
-      <Select options={options} onChange={handleMold}/>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
         <div style={{marginTop:"15px",display:"flex",fontSize:"16px",padding:"2px",marginBottom:"10px",alignItems:"center"}}> 
         <BsRulers style={{marginRight:"3px"}}/> <div style={{fontSize:"16px",fontWeight:"bold"}}>- 치수 입력(mm)</div></div>
 
@@ -621,11 +615,11 @@ export default function App() {
           <div>
             <div className="input-col">
               <div>도안 가로 길이</div>
-              <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} value={width} placeholder="가로 (mm)" onChange={handleWidth}/>
+              <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black",width:"100px"}} value={width} placeholder="가로 (mm)" onChange={handleWidth}/>
             </div>
             <div className="input-col">
               <div>도안 세로 길이</div>
-              <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black"}} type="text" value={height} placeholder="세로 (mm)"onChange={handleHeight}/>
+              <input style={{padding:"7px",marginTop:"10px",borderRadius:"4px",border:"0.1px solid black",width:"100px"}} type="text" value={height} placeholder="세로 (mm)"onChange={handleHeight}/>
             </div>
           </div>
           <div style={{border:"2px black solid", marginLeft:"15px",padding:"15px"}}>
@@ -633,27 +627,36 @@ export default function App() {
             <div>가로 1200mm</div>
             <div>세로 2400mm</div>
             <div style={{fontSize:"16px",fontWeight:"bold",marginTop:"10px"}}>결과</div>
-            <div>600 x 2400 2개</div>
+            <div>600 : 2개</div>
           </div>
           <div style={{border:"2px black solid", marginLeft:"15px",padding:"15px"}}>
             <div style={{fontSize:"16px",fontWeight:"bold"}}>예시 2</div>
             <div>가로 3000mm</div>
             <div>세로 2400mm</div>
-            <div>(몰딩 위에만)</div>
             <div style={{fontSize:"16px",fontWeight:"bold",marginTop:"10px"}}>결과</div>
-            <div>300 x 2400 1개</div>
-            <div>600 x 2400 2개</div>
+            <div>300 : 1개</div>
+            <div>600 : 2개</div>
           </div>
         </div>
-        <input type="submit" value="도안 생성"></input>
+        <div style={{display:"flex"}}>
+          <input type="submit" style={{marginRight:"5px",backgroundColor:"deepskyblue",boxShadow: '1px 2px 9px #F4AAB9'}} value="계산 하기" onClick={onCalcul}></input>
+          <input type="submit" style={{boxShadow: '1px 2px 9px #F4AAB9'}} value="도안 생성" onClick={onSubmit}></input>
+          </div>
+        
         {visible && (<div style={{marginTop:"10px",fontWeight:"bold"}}> <FaExclamation style={{marginRight:"3px"}}/> 페이지 하단에 도안이 생성되었습니다</div>)}
-      </form>
+        {visible && (
+          <div style={{border:"2px black solid", marginLeft:"15px",padding:"15px",width:"240px"}} >
+          <div style={{fontSize:"16px",fontWeight:"bold"}}>도안 예시</div>
+            <img style={{marginLeft:"8px",width:"200px",height:"200px"}}src={NothingExample}></img>
+          </div>)}
+
 
       <div style={{display:"flex",fontSize:"16px",padding:"2px",marginBottom:"10px",marginTop:"20px",alignItems:"center"}}> 
       <BsLightbulbFill style={{marginRight:"3px"}}/> <div style={{fontSize:"16px",fontWeight:"bold"}}>- 계산결과</div></div>
 
-      <div style={{marginLeft:"10px",marginRight:"10px",height:"45px",backgroundColor:"rgba(140, 158, 255, 0.3)",borderRadius:"4px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-        <text style={{fontSize:"16px",fontWeight:"bold"}}>{result}</text>
+      <div style={{marginLeft:"10px",marginRight:"10px",height:"45px",backgroundColor:"rgba(140, 158, 255, 0.3)",borderRadius:"4px",display:"flex",flexDirection:"column",paddingTop:"6px",paddingBottom:"6px",justifyContent:"center",alignItems:"center",boxShadow: '1px 2px 9px #F4AAB9'}}>
+        <text style={{fontSize:"20px",fontWeight:"bold"}}>붙이는 템바보드 디자인 : {radio}</text>
+        <text style={{fontSize:"20px",fontWeight:"bold"}}>{result}</text>
       </div>
     </div>
     
@@ -670,7 +673,7 @@ export default function App() {
                   <FaRegStickyNote style={{marginRight:"3px"}}/>도안
                 </span>
                 <span>
-                  - 20mm 단위로 입력해주세요.
+                  <text style={{fontSize:"20px",fontWeight:"bold"}}>- mm 단위로 입력해주세요.</text>
                 </span>
                 <div style={{display:"flex"}}>
                   <button className="input-button" onClick={addBox}>박스 추가</button>
@@ -710,17 +713,16 @@ export default function App() {
             <text style={{fontSize:"36px"}} x={buildWidth/2} y={58} width={50} height={40}>{width}</text>
             </svg>
             <span style={{borderRadius:"6px",width:"300px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}>붙이는 템바보드 디자인 : {radio}</span>
-            <span style={{marginTop:"5px",borderRadius:"6px",width:"200px",fontSize:"20px",fontWeight:"bold",display:"flex",alignItems:"center",backgroundColor:"rgba(140, 158, 255, 0.3)"}}>몰딩 : {mold.label}</span>
             
             <div>
-            <table style={{borderSpacing:"20px 10px"}}>
+            {/* <table style={{borderSpacing:"20px 10px"}}>
               <thead>
                 <tr>{thdata()}</tr>
               </thead>
               <tbody>
                 {tdData()}
               </tbody>
-            </table>
+            </table> */}
             </div>
             </div>
             <span><button style={{backgroundColor:"red"}} className="input-button" onClick={checkAll}>도안 캡쳐</button></span>
